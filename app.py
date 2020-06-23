@@ -22,7 +22,19 @@ def create_app(test_config=None):
     def be_cool():
         return "Be cool, man, be coooool! You're almost a FSND grad!"
 
-
+    '''
+    ACTOR ENDPOINTS GET, POST, PATCH, DELETE
+    '''
+    @app.route('/actors', methods=['GET']) #READ ACTORS
+    def retieve_actors():
+        actors = Actor.query.all()
+        selected_actors = [actor.format() for actor in actors]
+        return jsonify({
+            "success":True,
+            "total_actors":len(Actor.query.all()),
+            "actors": selected_actors
+        })
+    
     @app.route('/actors', methods=['POST']) #CREATE ACTOR
     def create_actors():
         body = request.get_json()
@@ -39,16 +51,44 @@ def create_app(test_config=None):
           'created':new_actor.id,
           'total_actors': len(Actor.query.all())})
 
-    @app.route('/actors', methods=['GET']) #READ ACTORS
-    def retieve_actors():
-        actors = Actor.query.all()
-        selected_actors = [actor.format() for actor in actors]
+    @app.route('/actors/<int:actor_id>',methods=['PATCH']) # UPDATE ACTOR 
+    def update_actor(actor_id):
+        actor = Actor.query.filter(Actor.id == actor_id).first()
+        actor.update()
+        return "UNDER CONSTRUCTION Cant update "+actor.name
+
+    @app.route('/actors/<int:actor_id>', methods=['DELETE']) #DELETE ACTOR
+    def remove_actor(actor_id):
+        actor = Actor.query.filter(Actor.id == actor_id).first()
+        if not actor:
+            abort(404)
+        actor.delete()
         return jsonify({
             "success":True,
-            "total_actors":len(Actor.query.all()),
-            "actors": selected_actors
-
+            "id": actor_id,
+            "total_actors": len(Actor.query.all())
         })
+
+    '''
+    --> ERROR HANDLING SECTION <--
+    '''
+    #404 error
+    @app.errorhandler(404) 
+    def not_found(error):
+        return jsonify({
+        'success': False,
+        'error' : 404,
+        'message': 'Resource not found'
+        }),404
+
+    #422 error
+    @app.errorhandler(422)
+    def unprocessed_entity(error):
+        return jsonify({
+        'success': False,
+        'error' : 422,
+        'message' : 'Could not process entity'
+        }),422
 
     return app
 
