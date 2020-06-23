@@ -70,6 +70,34 @@ def create_app(test_config=None):
         })
 
     '''
+    ENDPOINTS FOR MOVIES
+    '''
+    @app.route('/movies',methods=['GET'])
+    def retrieve_movies():
+        movies = Movie.query.all()
+        selected_movies = [movie.format() for movie in movies]
+        return jsonify({
+            "success":True,
+            "movies":selected_movies,
+            "total_movies" :len(Movie.query.all())
+        })
+
+    @app.route('/movies',methods=['POST'])
+    def create_movie():
+        body = request.get_json()
+
+        new_title = body.get('title',None)
+        new_releasedate = body.get('releasedate',None)
+        
+        new_movie = Movie(title=new_title,releasedate=new_releasedate)
+        new_movie.insert()
+        return jsonify({
+          'success':True,
+          'created':new_movie.id,
+          'total_movies': len(Movie.query.all())})
+
+
+    '''
     --> ERROR HANDLING SECTION <--
     '''
     #404 error
