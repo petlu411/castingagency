@@ -1,7 +1,8 @@
 import os
-from flask import Flask
-from models import setup_db, Actor, Movie
+from flask import Flask,request,jsonify,abort
 from flask_cors import CORS
+
+from models import setup_db, Actor, Movie
 
 def create_app(test_config=None):
 
@@ -21,12 +22,28 @@ def create_app(test_config=None):
     def be_cool():
         return "Be cool, man, be coooool! You're almost a FSND grad!"
 
-    return app
 
-    @app.route('/actors', methods=['POST'])
+    @app.route('/actors', methods=['POST']) #CREATE ACTOR
     def create_actors():
-        print("this is where I am.")
-        return "You tried to POST and actor."
+        body = request.get_json()
+
+        new_name = body.get('name',None)
+        new_age = body.get('age',None)
+        new_gender = body.get('gender',None)
+
+        new_actor = Actor(name=new_name,age=new_age,gender=new_gender)
+        new_actor.insert()
+
+        return jsonify({
+          'success':True,
+          'created':new_actor.id,
+          'total_actors': len(Actor.query.all())})
+
+    @app.route('/actors', methods=['GET']) #READ ACTORS
+    def retieve_actors():
+        return 'You tried to RETRIEVE all actors'
+
+    return app
 
 app = create_app()
 
