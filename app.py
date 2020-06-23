@@ -41,7 +41,14 @@ def create_app(test_config=None):
 
     @app.route('/actors', methods=['GET']) #READ ACTORS
     def retieve_actors():
-        return 'You tried to RETRIEVE all actors'
+        actors = Actor.query.all()
+        selected_actors = [actor.format() for actor in actors]
+        return jsonify({
+            "success":True,
+            "total_actors":len(Actor.query.all()),
+            "actors": selected_actors
+
+        })
 
     return app
 
