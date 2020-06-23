@@ -23,6 +23,11 @@ def create_app(test_config=None):
 
     return app
 
+    @app.route('/actors', methods=['POST'])
+    def create_actors():
+        print("this is where I am.")
+        return "You tried to POST and actor."
+
 app = create_app()
 
 if __name__ == '__main__':
