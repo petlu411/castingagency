@@ -39,6 +39,17 @@ class Actor(db.Model):
     self.age = age
     self.gender = gender
 
+  def insert(self):
+      db.session.add(self)
+      db.session.commit()
+
+  def update(self):
+      db.session.commit()
+
+  def delete(self):
+      db.session.delete(self)
+      db.session.commit()
+
   def format(self):
     return {
       'id': self.id,
@@ -60,6 +71,17 @@ class Movie(db.Model):
   def __init__(self, title, releasedate):
     self.title = title
     self.releasedate = releasedate
+
+  def insert(self):
+      db.session.add(self)
+      db.session.commit()
+
+  def update(self):
+      db.session.commit()
+
+  def delete(self):
+      db.session.delete(self)
+      db.session.commit()
 
   def format(self):
     return {

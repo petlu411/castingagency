@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from models import setup_db
+from models import setup_db, Actor, Movie
 from flask_cors import CORS
 
 def create_app(test_config=None):
@@ -9,14 +9,15 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
-    @app.route('/')
+    @app.route('/') # INDEX
     def get_greeting():
-        #excited = os.environ['EXCITED']
-        greeting = "Hello" 
-        #if excited == 'true': greeting = greeting + "!!!!!"
+        greeting = "Hello, there are no movies" 
+        movies = Movie.query.all()
+        if movies:
+            greeting = movies
         return greeting
 
-    @app.route('/coolkids')
+    @app.route('/coolkids') # MOTIVATIONAL ENDPOINT
     def be_cool():
         return "Be cool, man, be coooool! You're almost a FSND grad!"
 
