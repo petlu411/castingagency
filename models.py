@@ -64,8 +64,8 @@ Have title and release date
 class Movie(db.Model):  
   __tablename__ = 'Movie'
 
-  id = Column(Integer, primary_key=True)
-  title = Column(String)
+  id = Column(Integer, primary_key=True,nullable=False)
+  title = Column(String,nullable=False)
   releasedate = Column(String)
 
   def __init__(self, title, releasedate):
