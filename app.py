@@ -10,6 +10,7 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+
     @app.route('/') # INDEX
     def get_greeting():
         greeting = "Hello, there are no movies" 

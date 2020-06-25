@@ -26,9 +26,9 @@ Use virtual env https://virtualenv.pypa.io/en/latest/
 Here is a list of things I still have to do. I will edit it as I go through the project
 
 * Define Roles for access: Casting Assistant (Actor(R) + Movie(R), Casting Director (Actor(CRUD)+Movie(RU)), Executive Producer (Actor (CRUD) + Movie (CRUD))
-    - Add CRUD for Actor
-    - Add CRUD for Movie
-    - Set Auth0 Roles
+    - Add CRUD for Actor DONE
+    - Add CRUD for Movie DONE
+    - Set Auth0 Roles  
 * Implement Auth0 authentication
 * Set up testcases for each endpoint (4 endpoints * 2 models * 2 tests)
 * Model Movies (title, release date) and Actors (name, gender, age)
