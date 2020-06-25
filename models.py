@@ -5,9 +5,9 @@ import os
 
 database_path = os.environ.get('DATABASE_URL')
 if not database_path:
-    database_name = "d6jr987dj82juo"
-    database_path = "postgres://{}/{}".format('yzifohghzozjuu:64522481e97787a86418467b993a63047d16e51733c525083ee5eba3eb9c265b@ec2-35-172-73-125.compute-1.amazonaws.com:5432', database_name)
-
+    database_name = "db46n25uht9f5b"
+    database_path = "postgres://{}/{}".format('llnyamuzpjjkey:8a3b995dda2341142d180473cc5ba164116f42f0ae71c58e785bbd353f284d4b@ec2-50-19-26-235.compute-1.amazonaws.com:5432', database_name)
+    
 db = SQLAlchemy()
 
 '''
@@ -66,7 +66,7 @@ class Movie(db.Model):
 
   id = Column(Integer, primary_key=True)
   title = Column(String)
-  releasedate = Column(Integer)
+  releasedate = Column(String)
 
   def __init__(self, title, releasedate):
     self.title = title
