@@ -54,8 +54,16 @@ def create_app(test_config=None):
     @app.route('/actors/<int:actor_id>',methods=['PATCH']) # UPDATE ACTOR 
     def update_actor(actor_id):
         actor = Actor.query.filter(Actor.id == actor_id).first()
+        if not actor:
+            abort(404)
+        ## IMPLEMENT UPDATE FIELDS HERE
+
+        ##
         actor.update()
-        return "UNDER CONSTRUCTION Cant update "+actor.name
+        return jsonify({
+            "success":True,
+            "total_actors": len(Actor.query.all())
+        })
 
     @app.route('/actors/<int:actor_id>', methods=['DELETE']) #DELETE ACTOR
     def remove_actor(actor_id):
@@ -72,7 +80,7 @@ def create_app(test_config=None):
     '''
     ENDPOINTS FOR MOVIES
     '''
-    @app.route('/movies',methods=['GET'])
+    @app.route('/movies',methods=['GET']) # RETRIEVE MOVIES
     def retrieve_movies():
         movies = Movie.query.all()
         selected_movies = [movie.format() for movie in movies]
@@ -82,13 +90,13 @@ def create_app(test_config=None):
             "total_movies" :len(Movie.query.all())
         })
 
-    @app.route('/movies',methods=['POST'])
+    @app.route('/movies',methods=['POST']) # ADD NEW MOVIE
     def create_movie():
         body = request.get_json()
 
         new_title = body.get('title',None)
         new_releasedate = body.get('releasedate',None)
-        
+
         new_movie = Movie(title=new_title,releasedate=new_releasedate)
         new_movie.insert()
         return jsonify({
@@ -96,6 +104,34 @@ def create_app(test_config=None):
           'created':new_movie.id,
           'total_movies': len(Movie.query.all())})
 
+    @app.route('/movies/<int:movie_id>',methods=['PATCH']) #UPDATE A MOVIE 
+    def update_movie(movie_id):
+        movie = Movie.query.filter(Movie.id == movie_id).first()
+        if not movie:
+            abort(404)
+        ## IMPLEMENT UPDATE FIELDS HERE
+
+        ##
+        movie.update()
+        return jsonify({
+            "success":True,
+            "total_movies": len(Movie.query.all())
+        })
+
+    @app.route('/movies/<int:movie_id>',methods=['DELETE']) # DELETE A MOVIE 
+    def remove_movie(movie_id):
+        movie = Movie.query.filter(Movie.id == movie_id).first()
+        if not movie:
+            abort(404)       
+        movie.delete()
+        movies = Movie.query.all()
+        selected_movies = [movie.format() for movie in movies]
+        return jsonify({
+            "success":True,
+            "total_movies": len(movies),
+            "deleted":movie_id,
+            "movies": selected_movies
+        })
 
     '''
     --> ERROR HANDLING SECTION <--
