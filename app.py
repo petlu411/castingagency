@@ -1,5 +1,5 @@
 import os
-from flask import Flask,request,jsonify,abort
+from flask import Flask,request,jsonify,abort,render_template
 from flask_cors import CORS
 
 from models import setup_db, Actor, Movie
@@ -14,10 +14,9 @@ def create_app(test_config=None):
     @app.route('/') # INDEX
     def get_greeting():
         greeting = "Hello, there are no movies" 
+        actors = Actor.query.all()
         movies = Movie.query.all()
-        if movies:
-            greeting = movies
-        return greeting
+        return render_template('main.html', actors=actors, movies=movies)
 
     @app.route('/coolkids') # MOTIVATIONAL ENDPOINT
     def be_cool():

@@ -66,7 +66,7 @@ class Movie(db.Model):
 
   id = Column(Integer, primary_key=True,nullable=False)
   title = Column(String,nullable=False)
-  releasedate = Column(String,)
+  releasedate = Column(String)
 
   def __init__(self, title, releasedate):
     self.title = title
