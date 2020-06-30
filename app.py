@@ -3,6 +3,7 @@ from flask import Flask,request,jsonify,abort,render_template
 from flask_cors import CORS
 
 from models import setup_db, Actor, Movie
+from auth import requires_auth,AuthError
 
 def create_app(test_config=None):
 
@@ -22,11 +23,16 @@ def create_app(test_config=None):
     def be_cool():
         return "Be cool, man, be coooool! You're almost a FSND grad!"
 
+    @app.route('/login')
+    def login():
+        return "No probls"
+
     '''
     ACTOR ENDPOINTS GET, POST, PATCH, DELETE
     '''
     @app.route('/actors', methods=['GET']) #READ ACTORS
-    def retieve_actors():
+    @requires_auth('get:actor')
+    def retrieve_actors(payload):
         actors = Actor.query.all()
         selected_actors = [actor.format() for actor in actors]
         return jsonify({
@@ -36,7 +42,8 @@ def create_app(test_config=None):
         })
     
     @app.route('/actors', methods=['POST']) #CREATE ACTOR
-    def create_actors():
+    @requires_auth('post:actors')
+    def create_actors(payload):
         body = request.get_json()
 
         new_name = body.get('name',None)
@@ -52,28 +59,35 @@ def create_app(test_config=None):
           'total_actors': len(Actor.query.all())})
 
     @app.route('/actors/<int:actor_id>',methods=['PATCH']) # UPDATE ACTOR 
-    def update_actor(actor_id):
+    @requires_auth('patch:actors')
+    def update_actor(payload,actor_id):
         actor = Actor.query.filter(Actor.id == actor_id).first()
+        body = request.get_json()
         if not actor:
             abort(404)
-        ## IMPLEMENT UPDATE FIELDS HERE
-
-        ##
+        if body.get("name"):
+            actor.name = body.get("name")
+        if body.get("age"):
+            actor.age = body.get("age")
+        if body.get("gender"):
+            actor.gender = body.get("gender")
         actor.update()
         return jsonify({
             "success":True,
+            "updated":actor_id,
             "total_actors": len(Actor.query.all())
         })
 
     @app.route('/actors/<int:actor_id>', methods=['DELETE']) #DELETE ACTOR
-    def remove_actor(actor_id):
+    @requires_auth('delete:actors')
+    def remove_actor(payload,actor_id):
         actor = Actor.query.filter(Actor.id == actor_id).first()
         if not actor:
             abort(404)
         actor.delete()
         return jsonify({
             "success":True,
-            "id": actor_id,
+            "deleted": actor_id,
             "total_actors": len(Actor.query.all())
         })
 
@@ -81,7 +95,8 @@ def create_app(test_config=None):
     ENDPOINTS FOR MOVIES
     '''
     @app.route('/movies',methods=['GET']) # RETRIEVE MOVIES
-    def retrieve_movies():
+    @requires_auth('get:movies')
+    def retrieve_movies(payload):
         movies = Movie.query.all()
         selected_movies = [movie.format() for movie in movies]
         return jsonify({
@@ -91,7 +106,8 @@ def create_app(test_config=None):
         })
 
     @app.route('/movies',methods=['POST']) # ADD NEW MOVIE
-    def create_movie():
+    @requires_auth('post:movies')
+    def create_movie(payload):
         body = request.get_json()
 
         new_title = body.get('title',None)
@@ -105,21 +121,26 @@ def create_app(test_config=None):
           'total_movies': len(Movie.query.all())})
 
     @app.route('/movies/<int:movie_id>',methods=['PATCH']) #UPDATE A MOVIE 
-    def update_movie(movie_id):
+    @requires_auth('patch:movies')
+    def update_movie(payload,movie_id):
         movie = Movie.query.filter(Movie.id == movie_id).first()
         if not movie:
             abort(404)
-        ## IMPLEMENT UPDATE FIELDS HERE
-
-        ##
+        body = request.get_json()
+        if body.get("title"):
+            movie.title = body.get("title")
+        if body.get("releasedate"):
+            movie.releasedate = body.get("releasedate")
         movie.update()
         return jsonify({
             "success":True,
+            "updated":movie_id,
             "total_movies": len(Movie.query.all())
         })
 
     @app.route('/movies/<int:movie_id>',methods=['DELETE']) # DELETE A MOVIE 
-    def remove_movie(movie_id):
+    @requires_auth('delete:movies')
+    def remove_movie(payload,movie_id):
         movie = Movie.query.filter(Movie.id == movie_id).first()
         if not movie:
             abort(404)       

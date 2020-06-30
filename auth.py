@@ -15,7 +15,7 @@ class AuthError(Exception):
         self.status_code = status_code
 
 
-ef get_token_auth_header():
+def get_token_auth_header():
     auth = request.headers.get('Authorization', None)
     if not auth:
         raise AuthError({
@@ -122,6 +122,5 @@ def requires_auth(permission=''):
             payload = verify_decode_jwt(token)
             check_permissions(permission, payload)
             return f(payload, *args, **kwargs)
-
         return wrapper
     return requires_auth_decorator

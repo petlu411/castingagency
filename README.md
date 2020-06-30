@@ -40,3 +40,15 @@ YOUR_CLIENT_ID = PK8rkuIqdNWccsq1Ru8QLscR1qlCrqkt
 YOUR_CALLBACK_URI = localhost:5000
 
 https://petrus.eu.auth0.com/authorize?audience=castingagency&response_type=token&client_id=PK8rkuIqdNWccsq1Ru8QLscR1qlCrqkt&redirect_uri=localhost:5000
+
+Assistant login: 
+assistant@casting.agency
+Summer13
+
+Director login:
+director@casting.agency
+Udacity15
+
+Producer loging:
+producer@casting.agency
+Winter14
