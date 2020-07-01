@@ -1,0 +1,658 @@
+{
+	"info": {
+		"_postman_id": "c6557cab-4e3a-4a1d-bf98-c1d3ee079b5e",
+		"name": "Casting Agency",
+		"description": "This is the collection of test designed to test endpoints Actors and Movies in the \"Casting Agency\"-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Movie",
+			"item": [
+				{
+					"name": "/movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f4fc5a4-2f8e-4759-adc5-e4eef8c3e6e0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains movies array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.movies).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/movies",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies Correct input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "083d94ec-42d5-4dd5-98f3-06aa105d26c9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Movie count should be present\", function () {",
+									"    pm.response.to.have.jsonBody(\"total_movies\");",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Wild West\",\n    \"releasedate\":\"2020-06-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/movies",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/3 Correct input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e208ea9-c8df-418c-9b0c-1b732f365570",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Movie count should be present\", function () {",
+									"    pm.response.to.have.jsonBody(\"total_movies\");",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Wild West 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/movies/9",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"movies",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/4 Correct input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3fe6bc9d-31e1-4faf-9197-63d817e77ca1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains movies array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.movies).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ae250b1a-aa6e-494b-ad3e-45258d8ccd01",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/movies/8",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"movies",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies Incorrect input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4bce5031-46c5-442f-af90-4af0110dd23f",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Movie error and reason is given\", function () {",
+									"    pm.response.to.have.jsonBody(\"error\");",
+									"    pm.response.to.have.jsonBody(\"message\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tite\": \"The Wild West\",\n    \"releasedate\":\"2020-06-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/movies",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/2 Incorrect input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82d6db79-6219-48eb-88bd-ca78baa807aa",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Movie error and reason is given\", function () {",
+									"    pm.response.to.have.jsonBody(\"error\");",
+									"    pm.response.to.have.jsonBody(\"message\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tite\":\"Wild West 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/movies/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"movies",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Actor",
+			"item": [
+				{
+					"name": "/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1145463-37b9-45e4-897b-608798f33cdb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains actors array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actors).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU5MjI5MSwiZXhwIjoxNTkzNTk5NDkxLCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.QuiV7LtZI-CHHVJXMl3ahSscba01kiRNVRGUCmOwnz9AXaSFfqswqkokxZjIYkligUQAOtt3HgyUtufYp42QwnGYKheyAmip2bLrr1-dM8lXbwHGjtId0XjdRNbcJTfnD0maTozvYifalPJUIG9o0ixdEdp0Qufm3Uw__GJP9TzJY8hHmzX5A-7cqJ_X01dtchGGmXabfcejfN5tMqgFjKfHM2j-P6nv3_9Ix-yr9uCgq8_X9ioT5rcxJDsRV--aPyzJotc_6XzbWBl2MuIwSA2nBHlVzrl92JRjFfnY0MXin8wgU2CpEyojj1WwYoVw64MBWoA94-7CqRxJdWAn6Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors Correct input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b7d143aa-af9e-440a-8092-8db9084d03ac",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Movie count should be present\", function () {",
+									"    pm.response.to.have.jsonBody(\"total_actors\");",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Lenny Wild\",\n    \"age\": 29,\n    \"gender\":\"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/5 Correct Input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57911c66-3bc7-4de6-8552-dcc756fe1ace",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains actor array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actors).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/actors/12",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"actors",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/10 Correct Input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24486506-d502-4d39-82d5-0c3f8c81176b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU4ODA3OCwiZXhwIjoxNTkzNTk1Mjc4LCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.HwkgJX9kwqIwmf2Czn92X2dcTwKN1SslExYA-GZ30-79ALlcMGUvAVLb3Gz-cTdig9KCS2coKMC5-rx21Jx-FFNvI4lPHGw3YGeclXvqBoTWRXsilSBUICz59Bq7yBbHG4BvMOpxyZYo-VtVmsLQCaVkyzIZm9qH94Eeclq0uvp03rZBPbAyqcGOPvWR2ZUVMPH5uInPsdHtW5GqxA9mFs92qc-SWTmcBhNLckuXAdLuIjequ8eTUVAUKx3oLTUwD5eEGsuXNZldndwi_h4fKzDiGjxbvgXEa4Cb_FDMR9fc-nhBkoSevOqofoX-i7rMdnxkjJUga7RSyZ2U6HwXEw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gender\":\"female\",\n    \"age\":\"45\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/actors/10",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"actors",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors Incorrect input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7144ca4-8fdd-4c14-843c-adcf9d5be0e3",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Movie error and reason is given\", function () {",
+									"    pm.response.to.have.jsonBody(\"error\");",
+									"    pm.response.to.have.jsonBody(\"message\");",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU5MjI5MSwiZXhwIjoxNTkzNTk5NDkxLCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.QuiV7LtZI-CHHVJXMl3ahSscba01kiRNVRGUCmOwnz9AXaSFfqswqkokxZjIYkligUQAOtt3HgyUtufYp42QwnGYKheyAmip2bLrr1-dM8lXbwHGjtId0XjdRNbcJTfnD0maTozvYifalPJUIG9o0ixdEdp0Qufm3Uw__GJP9TzJY8hHmzX5A-7cqJ_X01dtchGGmXabfcejfN5tMqgFjKfHM2j-P6nv3_9Ix-yr9uCgq8_X9ioT5rcxJDsRV--aPyzJotc_6XzbWBl2MuIwSA2nBHlVzrl92JRjFfnY0MXin8wgU2CpEyojj1WwYoVw64MBWoA94-7CqRxJdWAn6Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Whale-man\",\n    \"age\" : \"15\",\n    \"geder\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/actors",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/1 Incorrect input",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZiWmdQVEh0NHJ4b0FOSnU3alVEZiJ9.eyJpc3MiOiJodHRwczovL3BldHJ1cy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVmYjg5MTQ2YjI1NjEwMDE5MGQyYzUyIiwiYXVkIjoiY2FzdGluZ2FnZW5jeSIsImlhdCI6MTU5MzU5MjI5MSwiZXhwIjoxNTkzNTk5NDkxLCJhenAiOiJQSzhya3VJcWROV2Njc3ExUnU4UUxzY1IxcWxDcnFrdCIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvciIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvciIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllcyJdfQ.QuiV7LtZI-CHHVJXMl3ahSscba01kiRNVRGUCmOwnz9AXaSFfqswqkokxZjIYkligUQAOtt3HgyUtufYp42QwnGYKheyAmip2bLrr1-dM8lXbwHGjtId0XjdRNbcJTfnD0maTozvYifalPJUIG9o0ixdEdp0Qufm3Uw__GJP9TzJY8hHmzX5A-7cqJ_X01dtchGGmXabfcejfN5tMqgFjKfHM2j-P6nv3_9Ix-yr9uCgq8_X9ioT5rcxJDsRV--aPyzJotc_6XzbWBl2MuIwSA2nBHlVzrl92JRjFfnY0MXin8wgU2CpEyojj1WwYoVw64MBWoA94-7CqRxJdWAn6Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gender\":\"mixed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/actors/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

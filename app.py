@@ -43,10 +43,11 @@ def create_app(test_config=None):
         })
     
     @app.route('/actors', methods=['POST']) #CREATE ACTOR
-    @requires_auth('post:actors')
+    @requires_auth('post:actor')
     def create_actors(payload):
         body = request.get_json()
-
+        if body.get('name') is None or body.get('age') is None or body.get('gender') is None:
+            abort(422)
         new_name = body.get('name',None)
         new_age = body.get('age',None)
         new_gender = body.get('gender',None)
@@ -60,7 +61,7 @@ def create_app(test_config=None):
           'total_actors': len(Actor.query.all())})
 
     @app.route('/actors/<int:actor_id>',methods=['PATCH']) # UPDATE ACTOR 
-    @requires_auth('patch:actors')
+    @requires_auth('patch:actor')
     def update_actor(payload,actor_id):
         actor = Actor.query.filter(Actor.id == actor_id).first()
         body = request.get_json()
@@ -80,16 +81,19 @@ def create_app(test_config=None):
         })
 
     @app.route('/actors/<int:actor_id>', methods=['DELETE']) #DELETE ACTOR
-    @requires_auth('delete:actors')
+    @requires_auth('delete:actor')
     def remove_actor(payload,actor_id):
         actor = Actor.query.filter(Actor.id == actor_id).first()
         if not actor:
             abort(404)
         actor.delete()
+        actors = Actor.query.all()
+        selected_actors = [actor.format() for actor in actors]
         return jsonify({
             "success":True,
             "deleted": actor_id,
-            "total_actors": len(Actor.query.all())
+            "total_actors": len(Actor.query.all()),
+            "actors": selected_actors
         })
 
     '''
@@ -110,7 +114,8 @@ def create_app(test_config=None):
     @requires_auth('post:movies')
     def create_movie(payload):
         body = request.get_json()
-
+        if body.get('title') is None or body.get('releasedate') is None:
+            abort(422)
         new_title = body.get('title',None)
         new_releasedate = body.get('releasedate',None)
 
@@ -128,6 +133,8 @@ def create_app(test_config=None):
         if not movie:
             abort(404)
         body = request.get_json()
+        if body.get('title') is None and body.get('releasedate') is None:
+            abort(422)
         if body.get("title"):
             movie.title = body.get("title")
         if body.get("releasedate"):
