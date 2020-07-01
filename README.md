@@ -46,33 +46,21 @@ There are three roles defined:
 
 ## Notes for testing
 
-https://{{YOUR_DOMAIN}}/authorize?audience={{API_IDENTIFIER}}&response_type=token&client_id={{YOUR_CLIENT_ID}}&redirect_uri={{YOUR_CALLBACK_URI}}
-YOUR_DOMAIN = petrus.eu.auth0.com
-API_IDENTIFIER = castingagency
-YOUR_CLIENT_ID = PK8rkuIqdNWccsq1Ru8QLscR1qlCrqkt
-YOUR_CALLBACK_URI = https://casting-agency-411.herokuapp.com/ (localhost:5000 if locally run)
+- YOUR_DOMAIN = petrus.eu.auth0.com
+- API_IDENTIFIER = castingagency
+- YOUR_CLIENT_ID = PK8rkuIqdNWccsq1Ru8QLscR1qlCrqkt
+- YOUR_CALLBACK_URI = https://casting-agency-411.herokuapp.com/ (localhost:5000 if locally run)
 
 login: https://petrus.eu.auth0.com/authorize?audience=castingagency&response_type=token&client_id=PK8rkuIqdNWccsq1Ru8QLscR1qlCrqkt&redirect_uri=https://casting-agency-411.herokuapp.com/
 
 logout: https://petrus.eu.auth0.com/v2/logout
 
+### Feel free to test using these pre-defined credentials:
 Assistant login: 
-assistant@casting.agency
-Summer13
-
+assistant@casting.agency Pass:Summer13
 
 Director login:
-director@casting.agency
-Udacity15
+director@casting.agency Pass:Udacity15
 
 Producer loging:
-producer@casting.agency
-Winter14
-
-logout via -> '/logout'
-
-{
-    "error": 404,
-    "message": "Resource not found",
-    "success": false
-}
+producer@casting.agency Pass:Winter14
