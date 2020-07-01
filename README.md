@@ -30,26 +30,26 @@ To test the RBAC, I have provided tokens in the bottom of this README.
 - DELETE '/movies/<int:movie_id>' - used to delete a movie.
 
 
-## RBAC Info
+# Roles
 There are three roles defined:
 
-# Assistants
+## Assistants
  - Can view actors and movies.
 
-# Directors
+## Directors
  - Can do everything an Assistant can
  - Can create, update and delete actors
  - Can update movies
 
-# Producers
+## Producers
 - Can do everything a Director can
 - Can create and delete movies
 
 
 
-## Notes for testing
+# Notes for testing
 
-### General information
+## General information
 - YOUR_DOMAIN = petrus.eu.auth0.com
 - API_IDENTIFIER = castingagency
 - YOUR_CLIENT_ID = PK8rkuIqdNWccsq1Ru8QLscR1qlCrqkt
@@ -59,7 +59,7 @@ login: https://petrus.eu.auth0.com/authorize?audience=castingagency&response_typ
 
 logout: https://petrus.eu.auth0.com/v2/logout
 
-### Feel free to test using these pre-defined credentials:
+## Feel free to test using these pre-defined credentials:
 Assistant login: 
 assistant@casting.agency Pass:Summer13
 
