@@ -13,7 +13,7 @@ def create_app(test_config=None):
 
 
     @app.route('/') # INDEX
-    @requires_auth()
+    @requires_auth('get:actors')
     def get_greeting():
         greeting = "Hello, there are no movies" 
         actors = Actor.query.all()
