@@ -13,6 +13,9 @@ Use virtual environment for convenience: https://virtualenv.pypa.io/en/latest/
 ## Install Requirements
 `pip3 install -r requirements.txt`
 
+## Testing in POSTman
+Please find defined tests in the collectionfile `Casting Agency.postman_collection.json`
+To test the RBAC, I have provided tokens in the bottom of this README.
 
 # API Endpoints 
 ## Actors
@@ -46,6 +49,7 @@ There are three roles defined:
 
 ## Notes for testing
 
+### General information
 - YOUR_DOMAIN = petrus.eu.auth0.com
 - API_IDENTIFIER = castingagency
 - YOUR_CLIENT_ID = PK8rkuIqdNWccsq1Ru8QLscR1qlCrqkt
@@ -64,3 +68,4 @@ director@casting.agency Pass:Udacity15
 
 Producer loging:
 producer@casting.agency Pass:Winter14
+
