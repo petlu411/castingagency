@@ -45,8 +45,22 @@ There are three roles defined:
 - Can do everything a Director can
 - Can create and delete movies
 
+# Data Models
 
+## Actors
+ An actor has three properties and an id:
+  - id = Column(Integer, primary_key=True)
+  - name = Column(String)
+  - age = Column(Integer)
+  - gender = Column(String)
 
+## Movies
+A movie has two properties and an id:
+  - id = Column(Integer, primary_key=True,nullable=False)
+  - title = Column(String,nullable=False)
+  - releasedate = Column(String)
+
+  
 # Notes for testing
 
 ## General information

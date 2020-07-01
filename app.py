@@ -1,5 +1,11 @@
 import os
-from flask import Flask,request,jsonify,abort,render_template
+from flask import (
+Flask,
+request,
+jsonify,
+abort,
+render_template
+)
 from flask_cors import CORS
 
 from models import setup_db, Actor, Movie
@@ -47,13 +53,19 @@ def create_app(test_config=None):
     def create_actors(payload):
         body = request.get_json()
         if body.get('name') is None or body.get('age') is None or body.get('gender') is None:
-            abort(422)
-        new_name = body.get('name',None)
-        new_age = body.get('age',None)
-        new_gender = body.get('gender',None)
+            abort(400)
+        new_name = body.get('name')
+        new_age = body.get('age')
+        new_gender = body.get('gender')
 
         new_actor = Actor(name=new_name,age=new_age,gender=new_gender)
-        new_actor.insert()
+        try:
+            new_actor.insert()
+        except:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
 
         return jsonify({
           'success':True,
@@ -73,7 +85,14 @@ def create_app(test_config=None):
             actor.age = body.get("age")
         if body.get("gender"):
             actor.gender = body.get("gender")
-        actor.update()
+        try:
+            actor.update()
+        except:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
+
         return jsonify({
             "success":True,
             "updated":actor_id,
@@ -86,7 +105,13 @@ def create_app(test_config=None):
         actor = Actor.query.filter(Actor.id == actor_id).first()
         if not actor:
             abort(404)
-        actor.delete()
+        try:
+            actor.delete()
+        except:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
         actors = Actor.query.all()
         selected_actors = [actor.format() for actor in actors]
         return jsonify({
@@ -115,12 +140,18 @@ def create_app(test_config=None):
     def create_movie(payload):
         body = request.get_json()
         if body.get('title') is None or body.get('releasedate') is None:
-            abort(422)
+            abort(400)
         new_title = body.get('title',None)
         new_releasedate = body.get('releasedate',None)
 
         new_movie = Movie(title=new_title,releasedate=new_releasedate)
-        new_movie.insert()
+        try:
+            new_movie.insert()
+        except:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
         return jsonify({
           'success':True,
           'created':new_movie.id,
@@ -134,12 +165,19 @@ def create_app(test_config=None):
             abort(404)
         body = request.get_json()
         if body.get('title') is None and body.get('releasedate') is None:
-            abort(422)
+            abort(400)
         if body.get("title"):
             movie.title = body.get("title")
         if body.get("releasedate"):
             movie.releasedate = body.get("releasedate")
-        movie.update()
+        try:
+            movie.update()
+        except:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
+
         return jsonify({
             "success":True,
             "updated":movie_id,
@@ -151,8 +189,14 @@ def create_app(test_config=None):
     def remove_movie(payload,movie_id):
         movie = Movie.query.filter(Movie.id == movie_id).first()
         if not movie:
-            abort(404)       
-        movie.delete()
+            abort(404)  
+        try:     
+            movie.delete()
+        except:
+            db.session.rollback()
+            abort(422)
+        finally:
+            db.session.close()
         movies = Movie.query.all()
         selected_movies = [movie.format() for movie in movies]
         return jsonify({
@@ -182,6 +226,22 @@ def create_app(test_config=None):
         'error' : 422,
         'message' : 'Could not process entity'
         }),422
+
+    @app.errorhandler(401)
+    def unauthorized_user(error):
+        return jsonify({
+            'success': False,
+            'error' : 401,
+            'message' : 'Unauthorized'
+        })
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            'success': False,
+            'error' : 400,
+            'message' : 'Bad Request. Please check that necessary fields are provided and correct.'
+        })
 
     return app
 

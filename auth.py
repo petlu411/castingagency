@@ -4,9 +4,9 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-AUTH0_DOMAIN = 'petrus.eu.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'castingagency'
+auth0_domain = os.environ.get('AUTH0_DOMAIN')
+algorithms = os.environ.get('ALGORITHMS')
+api_audience = os.environ.get('API_AUDIENCE')
 
 
 class AuthError(Exception):
@@ -62,7 +62,7 @@ def check_permissions(permission, payload):
 
 
 def verify_decode_jwt(token):
-    jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
+    jsonurl = urlopen(f'https://{auth0_domain}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
     unverified_header = jwt.get_unverified_header(token)
     rsa_key = {}
@@ -86,9 +86,9 @@ def verify_decode_jwt(token):
             payload = jwt.decode(
                 token,
                 rsa_key,
-                algorithms=ALGORITHMS,
-                audience=API_AUDIENCE,
-                issuer='https://' + AUTH0_DOMAIN + '/'
+                algorithms=algorithms,
+                audience=api_audience,
+                issuer='https://' + auth0_domain + '/'
             )
 
             return payload
