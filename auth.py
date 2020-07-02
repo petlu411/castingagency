@@ -1,3 +1,4 @@
+import os
 import json
 from flask import request, _request_ctx_stack
 from functools import wraps
@@ -7,7 +8,6 @@ from urllib.request import urlopen
 auth0_domain = os.environ.get('AUTH0_DOMAIN')
 algorithms = os.environ.get('ALGORITHMS')
 api_audience = os.environ.get('API_AUDIENCE')
-
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
