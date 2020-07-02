@@ -9,6 +9,7 @@ auth0_domain = os.environ.get('AUTH0_DOMAIN')
 algorithms = os.environ.get('ALGORITHMS')
 api_audience = os.environ.get('API_AUDIENCE')
 
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
