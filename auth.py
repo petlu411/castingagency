@@ -72,7 +72,6 @@ def verify_decode_jwt(token):
             'description': 'Authorization malformed.'
         }, 401)
     for key in jwks['keys']:
-        #print('Key  --> '+key['kid'])
         if key['kid'] == unverified_header['kid']:
             rsa_key = {
                 'kty': key['kty'],
@@ -102,7 +101,7 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': 'Incorrect claims. Please, check the audience.'
             }, 401)
         except Exception:
             raise AuthError({
@@ -113,6 +112,7 @@ def verify_decode_jwt(token):
                 'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'
             }, 400)
+
 
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
