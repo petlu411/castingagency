@@ -22,7 +22,7 @@ To test the RBAC, I have provided tokens in the bottom of this README.
 ### GET '/actors'  
 This endpoint returns a list of actors.
 Available to producers, directors and assistants.
-Successful response example:
+###### Successful response example:
 ```
 {
     "actors": [
@@ -65,7 +65,7 @@ Successful response example:
 ### POST '/actors' 
 This endpoint is used to create a new actor. Request should include 'name','age' and 'gender' in body.
 Available to producers and directors
-Successful response example:
+###### Successful response example:
 ```
 {
     "created": 14,
@@ -76,7 +76,7 @@ Successful response example:
 ### PATCH '/actors/<int:actor_id>' 
 This endpoint is used to update actor field. Include one or more of 'name','age' or 'gender' in body to update.
 Available to producers and directors
-Successful response example:
+###### Successful response example:
 ```
 {
     "success": true,
@@ -87,7 +87,7 @@ Successful response example:
 ### DELETE '/actors/<int:actor_id>' 
 This endpoint is used to delete an actor.
 Available to producers and directors
-Successful response example:
+###### Successful response example:
 ```
 {
     "actors": [
@@ -131,7 +131,7 @@ Successful response example:
 ### GET '/movies' 
 This endpoint returns a list of movies.
 Available to producers, directors and assistants.
-Successful response example:
+###### Successful response example:
 ```
 {
     "movies": [
@@ -183,7 +183,7 @@ Successful response example:
 ### POST '/movies'
 This endpoint is used to create a new movie. Request should include 'title' and 'releasedate' in body.
 Available to producers and directors.
-Successful response example:
+###### Successful response example:
 ```
 {
     "created": 15,
@@ -194,7 +194,7 @@ Successful response example:
 ### PATCH '/movies/<int:movie_id>' 
 This endpoint is used to update movie field. Include one or more of 'title' or 'releasedate' in body to update.
 Available to producers and directors.
-Successful response example:
+###### Successful response example:
 ```
 {
     "success": true,
@@ -204,7 +204,7 @@ Successful response example:
 ```
 ### DELETE '/movies/<int:movie_id>' 
 This endpoint is used to delete a movie. Only available for producers.
-Successful response example:
+###### Successful response example:
 ```
 {
     "deleted": 15,
